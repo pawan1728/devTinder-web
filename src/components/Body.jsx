@@ -13,13 +13,13 @@ const Body = () => {
   const navigate = useNavigate();
 
   const fetchUser = async () => {
-    try {
-      if (user) return;
+    if (user) return;
 
+    try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
     } catch (error) {
       if (error.status === 401) {
         navigate("/login");
@@ -30,7 +30,6 @@ const Body = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-
   return (
     <div>
       <Navbar />
